@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
+import generateTokenandSetCookie from "../utils/generateToken.js";
 
 export const signUp = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ export const signUp = async (req, res) => {
     }
     // HASH PASSWORD HERE
     const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt)
+    const hashPassword = await bcrypt.hash(password, salt);
 
     //  Avatar placeholder website for API
     // https://avatar-placeholder.iran.liara.run/
@@ -32,7 +33,45 @@ export const signUp = async (req, res) => {
       profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
     });
 
-    await newUser.save();
+    if (newUser) {
+      // generate jwt here
+
+      generateTokenandSetCookie(newUser._id, res);
+
+      await newUser.save();
+
+      res.status(201).json({
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        userName: newUser.userName,
+        profilePic: newUser.profilePic,
+      });
+    } else {
+      res.status(400).json({ error: "Invalid User Data" });
+    }
+  } catch (error) {
+    console.log("Error in signup Controller", error.message);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};
+export const login = async (req, res) => {
+  try {
+    const { userName, password } = req.body;
+
+    const user = await User.findOne({ userName });
+
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      user?.password || ""
+    );
+
+    if (!user || !isPasswordCorrect) {
+      return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    generateTokenandSetCookie(user._id, res);
 
     res.status(201).json({
       _id: newUser._id,
@@ -41,14 +80,11 @@ export const signUp = async (req, res) => {
       profilePic: newUser.profilePic,
     });
   } catch (error) {
-    console.log("Error in signup Controller", error.message);
+    console.log("Error in Login Controller", error.message);
     res.status(500).json({
       error: "Internal Server Error",
     });
   }
-};
-export const login = (req, res) => {
-  console.log("Login User");
 };
 
 export const logout = (req, res) => {
