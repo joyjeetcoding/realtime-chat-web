@@ -74,10 +74,10 @@ export const login = async (req, res) => {
     generateTokenandSetCookie(user._id, res);
 
     res.status(201).json({
-      _id: newUser._id,
-      fullName: newUser.fullName,
-      userName: newUser.userName,
-      profilePic: newUser.profilePic,
+      _id: user._id,
+      fullName: user.fullName,
+      userName: user.userName,
+      profilePic: user.profilePic,
     });
   } catch (error) {
     console.log("Error in Login Controller", error.message);
@@ -88,5 +88,13 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  console.log("Logout User");
+  try {
+    res.cookie("jwt", "", {maxAge: 0})
+    res.status(200).json({message: "Logged Out Successfully"})
+  } catch (error) {
+    console.log("Error in Logout Controller", error.message);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
 };
