@@ -12,7 +12,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json())    // To parse the incoming requests with json payloads (from req.body)
-app.use(cookieParser());
+app.use(cookieParser());    // To parse the incoming cookie from req.cookies
 
 
 app.use("/api/auth", authRoutes)
