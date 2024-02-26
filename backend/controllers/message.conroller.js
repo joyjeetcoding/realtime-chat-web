@@ -52,7 +52,17 @@ export const getMessages = async (req, res) => {
 
     const conversation = await Conversation.findOne({
       participants: { $all: [senderId, userToChatId] }
-    })
+    }).populate("messages") // NOT REference but actual messages
+    // Here populate("messages") will give the array of objects instead of array of IDs
+
+    if(!conversation) {
+      res.status(200).json([])
+    }
+
+    const messages = conversation.messages;
+
+    res.status(200).json(messages);
+
 
   } catch (error) {
     console.log("Error in getting Messages Controller: ", error.message);
