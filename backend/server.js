@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import messageRoutes from "./routes/message.routes.js"
 
 import connectToDB from './db/connectToDB.js';
 
