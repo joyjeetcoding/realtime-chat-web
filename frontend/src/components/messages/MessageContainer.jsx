@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import { TiMessages } from "react-icons/ti";
+import useConversation from "../../zustand/useConversation";
 
 const MessageContainer = () => {
-  const noChatSelected = true;
+  const { selectedConversation, setSelectedConversation } = useConversation();
+
+  // this is for that time when the user will logged out and when again he/she will come then the message container will not show
+  useEffect(() => {
+    // cleanup function (unmounts)
+    return () => setSelectedConversation(null)
+  }, [setSelectedConversation])
+
+  // const noChatSelected = true;
   return (
     <div className="md:min-w-[450px] flex flex-col">
-      {noChatSelected ? (
+      {!selectedConversation ? (
         <NoChatSelected />
       ) : (
         <>
           <div className="bg-slate-500 py-2 px-4 mb-2 ">
             <span className="label-text">To:</span>{" "}
-            <span className="text-gray-900 font-bold">Nairita Hazra</span>
+            <span className="text-gray-900 font-bold">{selectedConversation.fullName}</span>
           </div>
 
           <Messages />
