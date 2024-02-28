@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 function handleInputErrors({
   fullName,
@@ -28,6 +29,7 @@ function handleInputErrors({
 
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
+  const { authUser, setAuthUser } = useAuthContext();
 
   const signup = async ({
     fullName,
@@ -62,8 +64,16 @@ const useSignup = () => {
         }),
       });
 
-      const data = res.json();
-      console.log(data);
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      // localstorage
+      // we are using localstorage because if the user is logged in or not then it will redirect to the home page or not
+      localStorage.setItem("chat-user", JSON.stringify(data));
+
+      // context
+      setAuthUser(data);
     } catch (error) {
       toast.error(error.message);
     } finally {
