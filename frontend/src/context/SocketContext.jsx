@@ -20,7 +20,7 @@ export const SocketContextProvider = ({ children }) => {
     if (authUser) {
       // for getting the id we are passing the query
       // userId: authUser._id
-      const socket = io("http://localhost:5000", {
+      const socket = io("https://realtime-chat-web-pgnf.onrender.com", {
         query: {
           userId: authUser._id,
         },
