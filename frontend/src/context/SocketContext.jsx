@@ -20,6 +20,8 @@ export const SocketContextProvider = ({ children }) => {
     if (authUser) {
       // for getting the id we are passing the query
       // userId: authUser._id
+
+      // intead of http://localhost:5000 we need to give the deployed link otherwise the socket.io will not work
       const socket = io("https://realtime-chat-web-pgnf.onrender.com", {
         query: {
           userId: authUser._id,
