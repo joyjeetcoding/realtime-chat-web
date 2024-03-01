@@ -56,7 +56,7 @@ export const getMessages = async (req, res) => {
     // Here populate("messages") will give the array of objects instead of array of IDs
 
     if(!conversation) {
-      res.status(200).json([])
+      return res.status(200).json([])
     }
 
     const messages = conversation.messages;
