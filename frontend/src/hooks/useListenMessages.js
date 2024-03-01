@@ -13,8 +13,8 @@ const useListenMessages = () => {
             newMessage.shouldShake = true;
 
             // Uncomment this part if you want to use the sound
-            const sound = new Audio(notification);
-            sound.play()
+            // const sound = new Audio(notification);
+            // sound.play()
 
             
             setMessages([...messages, newMessage])
