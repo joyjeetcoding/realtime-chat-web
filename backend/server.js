@@ -9,7 +9,7 @@ import messageRoutes from "./routes/message.routes.js"
 
 import connectToDB from './db/connectToDB.js';
 
-const app = express();
+import { app } from './socket/socket.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
