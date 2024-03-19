@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, parsePath } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
