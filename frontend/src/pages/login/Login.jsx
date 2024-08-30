@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="text-white flex flex-col items-center justify-center relative h-screen w-full">
-      <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 flex justify-center items-center flex-col backdrop-filter backdrop-blur-lg bg-opacity-0 p-4 rounded-2xl">
+      <div className="absolute top-1/2 -translate-x-1/2 -translate-y-[100%] md:-translate-y-1/2 left-1/2 flex justify-center items-center flex-col backdrop-filter backdrop-blur-lg bg-opacity-0 p-4 rounded-2xl">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
           Login 
         </h1>
@@ -100,6 +100,13 @@ const Login = () => {
             </button>
           </div>
         </form>
+      </div>
+      <div className="absolute bottom-[8%] backdrop-filter backdrop-blur-lg bg-opacity-0 px-5 text-center">
+        <p className="py-4">If you don't want to Sign Up, you can use Username: "deadpool" and password: "12345678"</p>
+        
+        <a href="https://drive.google.com/file/d/15nYaCe0G7WPQ9xU8LmgDZD5qwCImf3Rh/view?usp=sharing" target="_blank">
+          <p className="md:text-xl font-extrabold hover:text-yellow-500">Click Here To see a quick Demo</p>
+        </a>
       </div>
     </div>
   );
